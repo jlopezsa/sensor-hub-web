@@ -1,4 +1,5 @@
 import { palette } from "../theme/colors";
+import { RealtimePlot } from "./RealtimePlot";
 
 const sensors = [
   {
@@ -231,64 +232,31 @@ export default function Dashboard() {
           className="rounded-3xl border p-6 shadow-sm"
           style={{ backgroundColor: palette.surface.hex, borderColor: palette.borderSoft.hex }}
         >
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <p className="text-sm uppercase tracking-[0.2em]" style={{ color: palette.textSecondary.hex }}>
-                Tiempo real
-              </p>
-              <h3 className="text-2xl font-semibold">Variacion instantanea</h3>
-              <p className="text-sm" style={{ color: palette.textSecondary.hex }}>
-                Actualiza cada 5 segundos y sincroniza temperatura y humedad en la misma escala.
-              </p>
-            </div>
-            <div className="flex gap-4 text-sm font-semibold">
-              <span className="flex items-center gap-2">
-                <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: palette.accentPrimary.hex }} />
-                Temperatura
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: palette.actionDark.hex }} />
-                Humedad
-              </span>
-            </div>
+          <div className="space-y-2">
+            <p className="text-sm uppercase tracking-[0.2em]" style={{ color: palette.textSecondary.hex }}>
+              Plotly
+            </p>
+            <h3 className="text-2xl font-semibold">Vista XY con Plotly</h3>
+            <p className="text-sm" style={{ color: palette.textSecondary.hex }}>
+              Plantilla lista para conectar tus datos reales usando react-plotly y la misma paleta.
+            </p>
           </div>
-          <div className="mt-6 h-64 w-full">
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="h-full w-full">
-              <defs>
-                <linearGradient id="temp-line" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor={palette.accentPrimary.hex} stopOpacity="0.6" />
-                  <stop offset="100%" stopColor={palette.accentPrimary.hex} stopOpacity="0.1" />
-                </linearGradient>
-                <linearGradient id="hum-line" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor={palette.actionDark.hex} stopOpacity="0.6" />
-                  <stop offset="100%" stopColor={palette.actionDark.hex} stopOpacity="0.1" />
-                </linearGradient>
-              </defs>
-              <rect width="100" height="100" fill="none" stroke={palette.borderSoft.hex} strokeWidth="0.2" />
-              <polyline
-                fill="none"
-                stroke={palette.accentPrimary.hex}
-                strokeWidth="1"
-                points={realtimePolylines.temperature}
-              />
-              <polyline
-                fill="none"
-                stroke={palette.actionDark.hex}
-                strokeWidth="1"
-                points={realtimePolylines.humidity}
-              />
-            </svg>
-          </div>
-          <div className="mt-4 flex flex-wrap gap-6 text-sm" style={{ color: palette.textSecondary.hex }}>
-            {realtimeSeries.temperature.map((point, index) => (
-              <div key={point.time} className="space-y-1">
-                <p className="font-semibold">{point.time}</p>
-                <p>Temp: {point.value.toFixed(1)} C</p>
-                <p>Hum: {realtimeSeries.humidity[index]?.value.toFixed(1)} %</p>
-              </div>
-            ))}
+          <div className="mt-6 h-[420px] w-full">
+            <RealtimePlot
+              temperature={realtimeSeries.temperature}
+              humidity={realtimeSeries.humidity}
+              colors={{
+                background: palette.surface.hex,
+                grid: palette.borderSoft.hex,
+                temperature: palette.accentPrimary.hex,
+                humidity: palette.actionDark.hex,
+                text: palette.textPrimary.hex,
+              }}
+            />
           </div>
         </section>
+
+
 
         <div className="rounded-3xl border px-6 py-6" style={{ borderColor: palette.borderSoft.hex }}>
           <p className="text-sm uppercase tracking-[0.2em]" style={{ color: palette.textSecondary.hex }}>

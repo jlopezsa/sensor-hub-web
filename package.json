@@ -11,7 +11,9 @@
   "dependencies": {
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "next": "16.0.1"
+    "next": "16.0.1",
+    "react-plotly.js": "^2.6.0",
+    "plotly.js-basic-dist": "^2.35.2"
   },
   "devDependencies": {
     "typescript": "^5",
