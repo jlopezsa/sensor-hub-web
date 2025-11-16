@@ -42,7 +42,8 @@ export function RealtimePlot({
   maxPoints = DEFAULT_MAX_POINTS,
 }: RealtimePlotProps) {
   // Seed state with las series iniciales (mock) y luego se alimenta solo con el WS
-  const [series, setSeries] = useState({ temperature, humidity });
+  // const [series, setSeries] = useState({ temperature, humidity });
+  const [series, setSeries] = useState<{ temperature: SeriesPoint[]; humidity: SeriesPoint[] }>({ temperature: [], humidity: [] });
   const [lastMessage, setLastMessage] = useState<SensorMessage | null>(null);
   const [connectionState, setConnectionState] = useState<"connecting" | "open" | "error" | "closed">("connecting");
 
