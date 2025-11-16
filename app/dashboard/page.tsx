@@ -238,7 +238,7 @@ export default function Dashboard() {
             </p>
             <h3 className="text-2xl font-semibold">Vista XY con Plotly</h3>
             <p className="text-sm" style={{ color: palette.textSecondary.hex }}>
-              Plantilla lista para conectar tus datos reales usando react-plotly y la misma paleta.
+              Plantilla lista para conectar tus datos reales usando react-plotly y la misma paleta 2.
             </p>
           </div>
           <div className="mt-6 h-[420px] w-full">
