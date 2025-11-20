@@ -1,5 +1,5 @@
 import { palette } from "../theme/colors";
-import { RealtimePlot } from "./RealtimePlot";
+import { RealtimePlot } from "./components/RealtimePlot";
 
 const sensors = [
   {
@@ -84,6 +84,8 @@ const realtimePolylines = {
   humidity: buildPolyline(realtimeSeries.humidity, realtimeMin, realtimeMax),
 };
 
+const DEFAULT_WS_URL = process.env.NEXT_PUBLIC_SENSORS_WS_URL;
+const DEFAULT_MAX_POINTS = process.env.DEFAULT_MAX_POINTS;
 export default function Dashboard() {
   return (
     <div
@@ -243,13 +245,13 @@ export default function Dashboard() {
           </div>
           <div className="mt-6 h-[420px] w-full">
             <RealtimePlot
-              temperature={realtimeSeries.temperature}
-              humidity={realtimeSeries.humidity}
+              data={realtimeSeries.temperature}
+              wsUrl={DEFAULT_WS_URL!}
+              maxPoints={Number(DEFAULT_MAX_POINTS!)}
               colors={{
                 background: palette.surface.hex,
                 grid: palette.borderSoft.hex,
-                temperature: palette.accentPrimary.hex,
-                humidity: palette.actionDark.hex,
+                line: palette.accentPrimary.hex,
                 text: palette.textPrimary.hex,
               }}
             />

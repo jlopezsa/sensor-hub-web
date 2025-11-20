@@ -2,48 +2,17 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
+import { RealtimePlotProps, SensorMessage, SeriesPoint } from "../interfaces/sadasd";
 
 const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
-type SeriesPoint = {
-  time: string;
-  value: number;
-};
-
-type SensorMessage = {
-  sensor_id?: string | number;
-  value?: number;
-  time?: string;
-  timestamp?: string | number;
-};
-
-type RealtimePlotProps = {
-  temperature: SeriesPoint[];
-  humidity: SeriesPoint[];
-  wsUrl?: string;
-  maxPoints?: number;
-  colors: {
-    background: string;
-    grid: string;
-    temperature: string;
-    humidity: string;
-    text: string;
-  };
-};
-
-const DEFAULT_WS_URL = process.env.NEXT_PUBLIC_SENSORS_WS_URL ?? "ws://localhost:8000/api/sensors/ws?sensor_id=4";
-const DEFAULT_MAX_POINTS = 60;
 
 export function RealtimePlot({
-  temperature,
-  humidity,
   colors,
-  wsUrl = DEFAULT_WS_URL,
-  maxPoints = DEFAULT_MAX_POINTS,
+  wsUrl,
+  maxPoints,
 }: RealtimePlotProps) {
-  // Seed state with las series iniciales (mock) y luego se alimenta solo con el WS
-  // const [series, setSeries] = useState({ temperature, humidity });
-  const [series, setSeries] = useState<{ temperature: SeriesPoint[]; humidity: SeriesPoint[] }>({ temperature: [], humidity: [] });
+  const [series, setSeries] = useState<{ data: SeriesPoint[] }>({ data: [] });
   const [lastMessage, setLastMessage] = useState<SensorMessage | null>(null);
   const [connectionState, setConnectionState] = useState<"connecting" | "open" | "error" | "closed">("connecting");
 
@@ -83,7 +52,7 @@ export function RealtimePlot({
           const next = { ...prev };
 
           if (typeof payload.value === "number") {
-            next.temperature = [...prev.temperature, { time: timeLabel, value: payload.value }].slice(-maxPoints);
+            next.data = [...prev.data, { time: timeLabel, value: payload.value }].slice(-maxPoints);
             hasChanges = true;
           }
 
@@ -105,42 +74,24 @@ export function RealtimePlot({
   const data: Partial<Plotly.PlotData>[] = useMemo(() => {
     const traces: Partial<Plotly.PlotData>[] = [];
 
-    if (series.temperature.length) {
+    if (series.data.length) {
       traces.push({
         type: "scatter",
         mode: "lines+markers",
         name: "Lectura",
-        x: series.temperature.map((point) => point.time),
-        y: series.temperature.map((point) => point.value),
+        x: series.data.map((point) => point.time),
+        y: series.data.map((point) => point.value),
         line: {
-          color: colors.temperature,
+          color: colors.line,
           shape: "spline",
           smoothing: 1.3,
           width: 3,
         },
-        marker: { color: colors.temperature, size: 6 },
+        marker: { color: colors.line, size: 6 },
       });
     }
-
-    if (series.humidity.length) {
-      traces.push({
-        type: "scatter",
-        mode: "lines+markers",
-        name: "Humedad",
-        x: series.humidity.map((point) => point.time),
-        y: series.humidity.map((point) => point.value),
-        line: {
-          color: colors.humidity,
-          shape: "spline",
-          smoothing: 1.3,
-          width: 3,
-        },
-        marker: { color: colors.humidity, size: 6 },
-      });
-    }
-
     return traces;
-  }, [colors.humidity, colors.temperature, series.humidity, series.temperature]);
+  }, [colors.line, series.data]);
 
   const layout: Partial<Plotly.Layout> = useMemo(
     () => ({
@@ -188,7 +139,7 @@ export function RealtimePlot({
 
   const statusColor = {
     connecting: colors.grid,
-    open: colors.temperature,
+    open: colors.line,
     error: "#f87171",
     closed: colors.text,
   }[connectionState];
