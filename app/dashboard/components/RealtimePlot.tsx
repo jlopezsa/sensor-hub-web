@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useState } from "react";
-import { RealtimePlotProps, SensorMessage, SeriesPoint } from "../interfaces/sadasd";
+import { RealtimePlotProps, SensorMessage, SeriesPoint } from "../interfaces/real-time-plot.interface";
 
 const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
