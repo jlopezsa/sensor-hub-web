@@ -11,7 +11,6 @@ export interface SensorMessage {
 }
 
 export interface RealtimePlotProps {
-  data: SeriesPoint[];
   wsUrl: string;
   maxPoints: number;
   colors: {
