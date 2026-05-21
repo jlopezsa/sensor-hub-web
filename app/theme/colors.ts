@@ -1,4 +1,3 @@
-// Paleta centralizada para reutilizar colores en distintas paginas.
 type SolidColor = {
   tailwind: string;
   hex: string;
@@ -13,83 +12,156 @@ type GradientToken = {
 
 export const palette: Record<string, SolidColor> = {
   backgroundBase: {
-    tailwind: "zinc-50",
-    hex: "#fafafa",
-    description: "Base claro para secciones amplias y fondos de pagina.",
+    tailwind: "slate-950",
+    hex: "#06111f",
+    description: "Base principal del producto, profunda y técnica.",
+  },
+  backgroundCanvas: {
+    tailwind: "slate-950",
+    hex: "#08182b",
+    description: "Plano inferior para fondos atmosféricos y overlays amplios.",
   },
   backgroundHighlight: {
-    tailwind: "zinc-100",
-    hex: "#f4f4f5",
-    description: "Suaviza bloques destacados dentro del flujo de contenido.",
+    tailwind: "slate-900",
+    hex: "#0e2238",
+    description: "Bloques secundarios y fondos de tarjetas internas.",
   },
   surface: {
-    tailwind: "white",
-    hex: "#ffffff",
-    description: "Tarjetas, paneles y componentes con borde suave.",
+    tailwind: "slate-900/80",
+    hex: "rgba(14, 34, 56, 0.78)",
+    description: "Superficies principales tipo panel con transparencia controlada.",
+  },
+  surfaceStrong: {
+    tailwind: "slate-900",
+    hex: "#10263d",
+    description: "Paneles de mayor jerarquía para áreas críticas.",
   },
   borderSoft: {
-    tailwind: "zinc-200",
-    hex: "#e4e4e7",
-    description: "Bordes y divisores con baja jerarquia visual.",
+    tailwind: "cyan-950",
+    hex: "rgba(104, 184, 255, 0.18)",
+    description: "Borde suave para separar paneles sin romper el fondo oscuro.",
+  },
+  borderStrong: {
+    tailwind: "cyan-700",
+    hex: "rgba(96, 205, 255, 0.38)",
+    description: "Borde destacado para foco y énfasis técnico.",
   },
   textPrimary: {
-    tailwind: "zinc-900",
-    hex: "#18181b",
-    description: "Titulos, mensajes principales y botones oscuros.",
+    tailwind: "slate-50",
+    hex: "#edf6ff",
+    description: "Texto principal y métricas críticas.",
   },
   textSecondary: {
-    tailwind: "zinc-600",
-    hex: "#52525b",
-    description: "Parrafos de soporte, descripciones y labels.",
+    tailwind: "slate-300",
+    hex: "#8ea8c2",
+    description: "Texto de soporte, etiquetas y microcopy.",
   },
-  textSubtle: {
-    tailwind: "zinc-300",
-    hex: "#d4d4d8",
-    description: "Estadisticas y texto sobre fondos muy oscuros.",
+  textMuted: {
+    tailwind: "slate-400",
+    hex: "#6f86a0",
+    description: "Texto de menor jerarquía para metadatos y ejes.",
   },
   textInverse: {
-    tailwind: "white",
-    hex: "#ffffff",
-    description: "Texto sobre fondos oscuros en botones y banners.",
+    tailwind: "slate-950",
+    hex: "#05101d",
+    description: "Texto sobre acentos claros y badges activos.",
   },
   accentPrimary: {
-    tailwind: "indigo-500",
-    hex: "#6366f1",
-    description: "CTA principal y elementos destacados.",
+    tailwind: "cyan-400",
+    hex: "#56e0ff",
+    description: "Acento principal para CTAs y elementos vivos.",
   },
-  accentPrimaryHover: {
-    tailwind: "indigo-400",
-    hex: "#818cf8",
-    description: "Estado hover para el CTA principal.",
+  accentPrimarySoft: {
+    tailwind: "cyan-300",
+    hex: "#7be7ff",
+    description: "Variante suave para destellos, hover y trazos secundarios.",
   },
   accentSecondary: {
-    tailwind: "indigo-300",
-    hex: "#a5b4fc",
-    description: "Etiquetas, microcopys y badges secundarios.",
+    tailwind: "teal-300",
+    hex: "#5eead4",
+    description: "Acento complementario para sensores estables y highlights.",
   },
-  actionDark: {
-    tailwind: "zinc-900",
-    hex: "#18181b",
-    description: "Botones neutros con texto blanco.",
-  },
-  actionDarkHover: {
-    tailwind: "zinc-700",
-    hex: "#3f3f46",
-    description: "Estado hover para botones neutros oscuros.",
+  accentSecondarySoft: {
+    tailwind: "teal-200",
+    hex: "#99f6e4",
+    description: "Relleno translúcido para estados favorables.",
   },
   overlay: {
-    tailwind: "black/30",
-    hex: "rgba(0, 0, 0, 0.3)",
-    description: "Paneles con transparencia y tarjetas en fondos oscuros.",
+    tailwind: "cyan-400/10",
+    hex: "rgba(86, 224, 255, 0.1)",
+    description: "Capa translúcida para zonas destacadas.",
+  },
+  success: {
+    tailwind: "emerald-400",
+    hex: "#34d399",
+    description: "Estado normal o estable.",
+  },
+  warning: {
+    tailwind: "amber-400",
+    hex: "#fbbf24",
+    description: "Estado de atención o monitoreo.",
+  },
+  danger: {
+    tailwind: "rose-400",
+    hex: "#fb7185",
+    description: "Alarma o condición crítica.",
+  },
+  neutral: {
+    tailwind: "slate-500",
+    hex: "#64748b",
+    description: "Estado desconectado o neutro.",
   },
 };
 
 export const gradients: Record<string, GradientToken> = {
-  heroBackground: {
-    tailwind: "from-zinc-50 via-white to-zinc-100",
-    stops: ["#fafafa", "#ffffff", "#f4f4f5"],
-    description: "Gradiente utilizado en la cabecera principal de la landing.",
+  siteBackground: {
+    tailwind: "from-slate-950 via-slate-950 to-cyan-950/40",
+    stops: ["#06111f 0%", "#07182c 45%", "#0b2840 100%"],
+    description: "Gradiente principal del sitio con base azul profunda.",
+  },
+  heroGlow: {
+    tailwind: "from-cyan-400/20 via-teal-300/10 to-transparent",
+    stops: ["rgba(86, 224, 255, 0.22)", "rgba(94, 234, 212, 0.12)", "rgba(0, 0, 0, 0)"],
+    description: "Brillo atmosférico para hero y paneles destacados.",
+  },
+  panelGlow: {
+    tailwind: "from-cyan-400/12 to-transparent",
+    stops: ["rgba(86, 224, 255, 0.12)", "rgba(0, 0, 0, 0)"],
+    description: "Iluminación suave para tarjetas operativas.",
   },
 };
+
+export const statusPalette = {
+  normal: {
+    label: "Normal",
+    color: palette.success.hex,
+    background: "rgba(52, 211, 153, 0.12)",
+  },
+  stable: {
+    label: "Estable",
+    color: palette.accentSecondary.hex,
+    background: "rgba(94, 234, 212, 0.12)",
+  },
+  warning: {
+    label: "Atención",
+    color: palette.warning.hex,
+    background: "rgba(251, 191, 36, 0.12)",
+  },
+  alert: {
+    label: "Alarma",
+    color: palette.danger.hex,
+    background: "rgba(251, 113, 133, 0.12)",
+  },
+  offline: {
+    label: "Desconectado",
+    color: palette.neutral.hex,
+    background: "rgba(100, 116, 139, 0.14)",
+  },
+  syncing: {
+    label: "Sincronizando",
+    color: palette.accentPrimary.hex,
+    background: "rgba(86, 224, 255, 0.12)",
+  },
+} as const;
 
 export type PaletteToken = keyof typeof palette;

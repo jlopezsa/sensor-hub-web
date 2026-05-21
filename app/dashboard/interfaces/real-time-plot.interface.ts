@@ -13,10 +13,16 @@ export interface SensorMessage {
 export interface RealtimePlotProps {
   wsUrl: string;
   maxPoints: number;
+  title?: string;
+  sensorLabel?: string;
+  unit?: string;
+  timeRangeLabel?: string;
   colors: {
     background: string;
     grid: string;
     line: string;
     text: string;
+    muted?: string;
+    accent?: string;
   };
 }
